@@ -24,7 +24,7 @@
   },
   "home": {
     "pidsTitle": "Was PIDs sind",
-    "pidsBody": "Eine PID ist ein persistenter Identifikator: ein dauerhafter Name für etwas, das man später wiederfinden möchte. Das kann etwa ein Artikel, eine Datei, eine Webseite oder eine andere Ressource sein. PIDs ermöglichen es, über längere Zeit eindeutig auf dieselbe Sache zu verweisen.",
+    "pidsBody": "Eine PID ist ein persistenter Identifikator: ein dauerhafter Name für etwas, das man später wiederfinden möchte. Das kann etwa ein Papier, eine Datei, eine Webseite oder eine andere Ressource sein. PIDs ermöglichen es, über längere Zeit eindeutig auf dieselbe Sache zu verweisen.",
     "wikiLinkTitle": "Mehr auf Wikipedia",
     "aboutTitle": "Was dieser Resolver leistet",
     "aboutBody": "Damit PIDs nützlich sind, muss erkennbar sein, worauf sie verweisen. Genau das leistet ein Resolver. Die PIDs, mit denen dieser Resolver arbeitet, sind in Namespaces gruppiert. Sie können Details wie die verknüpfte URL, Metadaten und weitere Angaben einsehen. Geben Sie dazu einen Namespace und eine PID – durch einen Schrägstrich getrennt – in das Feld oben ein.",

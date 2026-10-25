@@ -83,7 +83,7 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <html lang={locale}>
-      <body className="flex h-screen flex-col">
+      <body className="flex h-dvh flex-col overflow-hidden">
         <NextIntlClientProvider>
           <ResolveExampleProvider placeholder={resolveExample}>
             <a href="#main-content" className="skip-link">

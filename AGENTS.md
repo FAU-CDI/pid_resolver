@@ -38,7 +38,12 @@ Read the relevant guide under `node_modules/next/dist/docs/` before writing Next
   `localeDetection` is enabled so **unprefixed** entry URLs may **307** to a prefixed URL using `Accept-Language` (fallback `en`); never set a cookie when doing so.
   Prefixed URLs (`/en/…`, `/de/…`) must not vary by `Accept-Language`.
   UI copy lives in `messages/{locale}.json`. Adding a locale means extending the shared allowlist, message file, and language-switcher flag map together.
-  `proxy.ts` is allowed solely for next-intl locale routing (not for status-code hacks on browse pages).
+  `proxy.ts` is allowed for next-intl locale routing and security headers (CSP nonces); not for status-code hacks on browse pages.
+- Content-Security-Policy is nonce-based and same-origin (`'self'` + `'strict-dynamic'` for scripts).
+  Do not add `'unsafe-eval'` in production (development-only when needed for React/Next debug).
+  Do not allow third-party browser origins without updating the CSP builder in `lib/csp.ts`.
+  Companion headers (`X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`) live in `next.config.ts`.
+  Do not document CSP or security-header details in the user-facing README (this file only).
 - `<html lang>` is the active UI locale.
   Language tagging for API-sourced fields: ids / mount / URL / PID pattern → `lang="zxx"`; metadata / tags → `lang="und"`; PID charset enum → `lang="en"`; Created/Updated → localized time strings; missing URL → localized “None”.
 - Never render untrusted request input (query params, path segments used as prose, headers, etc.) as error **title** or **message** in the UI.
@@ -52,7 +57,7 @@ Read the relevant guide under `node_modules/next/dist/docs/` before writing Next
 - Open URL is `/go` (under `/{locale}/…`): redirect when a target URL exists; otherwise render the result UI with breadcrumbs ending in **URL** and fixed server copy.
 - HTTP status (maintainable App Router): guarantee **307** via `redirect()`, **5xx** via throw/`error.tsx`, and **404** for unmatched routes via `not-found.tsx`.
   Missing namespace/PID (and similar) must keep contextual breadcrumbs and Resolve UI, so those pages stay **200** with an error card — do not call `notFound()` for them (it replaces the page tree).
-  Do not add Proxy, Pages Router, or other hacks for 410 or custom statuses on browse pages (next-intl `proxy.ts` for locale routing is the allowed exception).
+  Do not add Proxy, Pages Router, or other hacks for 410 or custom statuses on browse pages (`proxy.ts` for next-intl locale routing and CSP nonces is the allowed exception).
   Clients must not rely on frontend status codes; point them at the QuickPID API (`PUBLIC_API_URL` homepage link is display-only; fetches use `BACKEND_URL`).
 - Stable public URL shapes: the routes under **URL shapes** in `README.md` are a **public API**.
   Do not remove or change them.

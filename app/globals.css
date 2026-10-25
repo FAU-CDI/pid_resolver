@@ -203,11 +203,11 @@ body {
   }
 
   .detail-hero-path {
-    @apply min-w-0 flex-1 break-all font-mono text-xl font-medium text-gray-900 dark:text-gray-100;
+    @apply min-w-0 flex-1 font-mono text-xl font-medium text-gray-900 dark:text-gray-100;
   }
 
   .detail-hero-scope {
-    @apply font-normal text-gray-400 dark:text-gray-500;
+    @apply wrap-anywhere font-normal text-gray-400 dark:text-gray-500;
   }
 
   .detail-hero-sep {
@@ -215,7 +215,7 @@ body {
   }
 
   .detail-hero-pid {
-    @apply text-gray-900 dark:text-gray-100;
+    @apply wrap-anywhere text-gray-900 dark:text-gray-100;
   }
 
   .detail-hero-muted .detail-hero-pid {

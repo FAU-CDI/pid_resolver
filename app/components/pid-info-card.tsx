@@ -188,6 +188,7 @@ function PidHero({
         <span className="detail-hero-sep" aria-hidden="true">
           /
         </span>
+        <wbr />
         <span className="detail-hero-pid">
           <BackendCode>{pid}</BackendCode>
         </span>

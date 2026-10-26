@@ -21,10 +21,12 @@ describe("buildContentSecurityPolicy", () => {
     expect(csp).toContain("upgrade-insecure-requests");
   });
 
-  it("includes unsafe-eval and unsafe-inline in development", () => {
+  it("allows un-nonced inline styles and unsafe-eval in development", () => {
     const csp = buildContentSecurityPolicy({ nonce, isDev: true });
     expect(csp).toContain("'unsafe-eval'");
-    expect(csp).toContain("'unsafe-inline'");
+    expect(csp).toMatch(/style-src[^;]*'unsafe-inline'/);
+    expect(csp).not.toMatch(/style-src[^;]*'nonce-/);
+    expect(csp).toMatch(/script-src[^;]*'nonce-test-nonce-value'/);
   });
 
   it("omits upgrade-insecure-requests in development", () => {

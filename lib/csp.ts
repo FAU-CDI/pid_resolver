@@ -4,6 +4,7 @@
  * Same-origin only: no third-party browser scripts, fonts, or analytics.
  * Backend fetches are server-side and do not need connect-src exceptions.
  * Production never includes 'unsafe-eval'; development may, for React/Next debug.
+ * Development style-src uses 'unsafe-inline' without a nonce (nonce would disable it).
  */
 
 export type BuildCspOptions = {
@@ -25,11 +26,13 @@ export function buildContentSecurityPolicy({
     ...(isDev ? ["'unsafe-eval'"] : []),
   ].join(" ");
 
-  const styleSrc = [
-    "'self'",
-    `'nonce-${nonce}'`,
-    ...(isDev ? ["'unsafe-inline'"] : []),
-  ].join(" ");
+  // A style-src nonce makes browsers ignore 'unsafe-inline'. Next/Turbopack
+  // injects un-nonced <style> tags in development, so omit the nonce there.
+  const styleSrc = (
+    isDev
+      ? ["'self'", "'unsafe-inline'"]
+      : ["'self'", `'nonce-${nonce}'`]
+  ).join(" ");
 
   const directives = [
     "default-src 'self'",
